@@ -18,5 +18,7 @@ suspend fun insertCompanyListings(
 @Query("DELETE FROM companylistingentity")
 suspend fun clearCompanyListings(
 )
-suspend fun searchCompanyListings(query:String):List<CompanyListingEntity>
+
+    @Query("""SELECT*FROM companylistingentity WHERE LOWER(name) LIKE '%' || LOWER(:query)|| '%' OR UPPER(:query)==symbol """)
+    suspend fun searchCompanyListings(query:String):List<CompanyListingEntity>
 }
